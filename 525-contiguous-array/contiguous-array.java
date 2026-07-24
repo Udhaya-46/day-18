@@ -5,31 +5,30 @@ class Solution {
         
         HashMap<Integer, Integer> map = new HashMap<>();
         
-        // Sum 0 exists before starting
+        // Store sum 0 at index -1
         map.put(0, -1);
 
-        int sum = 0;
-        int maxLength = 0;
+        int count = 0;
+        int maxLen = 0;
 
         for (int i = 0; i < nums.length; i++) {
             
-            // Convert 0 to -1
+            // Treat 0 as -1 and 1 as +1
             if (nums[i] == 0) {
-                sum--;
+                count--;
             } else {
-                sum++;
+                count++;
             }
 
-            // Same sum found -> equal 0s and 1s
-            if (map.containsKey(sum)) {
-                maxLength = Math.max(maxLength, i - map.get(sum));
-            } 
-            else {
-                // Store first occurrence only
-                map.put(sum, i);
+            // If same count appears, subarray has equal 0s and 1s
+            if (map.containsKey(count)) {
+                maxLen = Math.max(maxLen, i - map.get(count));
+            } else {
+                // Store first occurrence of count
+                map.put(count, i);
             }
         }
 
-        return maxLength;
+        return maxLen;
     }
 }
